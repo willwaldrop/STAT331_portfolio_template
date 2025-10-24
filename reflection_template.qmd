@@ -47,7 +47,18 @@ teacher_evals <- read_csv(here("Week 3", "Lab 3 (Revised)", "teacher_evals.csv")
 
 ```{r}
 #| label: wd-2-ex-1
-
+# Lab 3 Question 1 
+teacher_evals_compare <- teacher_evals |>
+  filter(question_no == 903) |>
+  mutate(
+    set_level = ifelse(SET_score_avg >= 4, "excellent", "standard"),
+    sen_level = case_when(
+      seniority <= 4 ~ "junior",
+      seniority >= 5 & seniority <= 8 ~ "senior",
+      seniority > 8 ~ "very senior"
+    )
+  ) |>
+  select(course_id, set_level, sen_level)
 ```
 
 -   Example removing specified columns
