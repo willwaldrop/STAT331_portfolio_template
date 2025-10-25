@@ -275,7 +275,11 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: r-2-1
-
+# Lab 1 - Tooth Growth Boxplots
+ggplot(data = ToothGrowth, 
+       mapping = aes(x = supp, y = len)) +
+  geom_boxplot() +
+  labs(x = "Supplement", y = "Length of Teeth (mm)")
 ```
 
 -   Example of **dplyr** pipeline
@@ -323,7 +327,11 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: dvs-2-num-cat
-
+# Lab 1 - Tooth Growth by Supplement Type
+ggplot(data = ToothGrowth, 
+       mapping = aes(x = supp, y = len)) +
+  geom_boxplot() +
+  labs(x = "Supplement", y = "Length of Teeth (mm)")
 ```
 
 -   At least two categorical variables
@@ -360,7 +368,12 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: dvs-2-ex-3
-
+# Lab 1 - Tooth Growth with Clear Labels
+ToothGrowth |> 
+  mutate(dose = as.factor(dose)) |> 
+  ggplot(mapping = aes(x = dose, y = len)) +
+  geom_boxplot() +
+  labs(x = "Dose of Supplement (mg/day)", y = "Length of Teeth (mm)")
 ```
 
 -   I can modify the text in my plot to be more readable
@@ -610,7 +623,8 @@ teacher_evals_clean <- teacher_evals |>
 
 ```{r}
 #| label: dsm-2-1
-
+# Lab 1 - Two-sample t-test
+t.test(len ~ supp, data = ToothGrowth, var.equal = FALSE)
 ```
 
 -   Example 2
