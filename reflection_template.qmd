@@ -65,7 +65,16 @@ teacher_evals_compare <- teacher_evals |>
 
 ```{r}
 #| label: wd-2-ex-2
-
+# Lab 3 Question 5
+teacher_evals_clean <- teacher_evals |> 
+  rename(sex = gender) |> 
+  filter(no_participants >= 10) |> 
+  mutate(
+    teacher_id = as.character(teacher_id),
+    course_id = as.character(course_id),
+    sex = as.factor(sex)) |> 
+  select(course_id, teacher_id, question_no, no_participants, resp_share,
+         SET_score_avg, percent_failed_cur, academic_degree, seniority, sex)
 ```
 
 -   Example selecting columns based on logical values (e.g., `starts_with()`, `ends_with()`, `contains()`, `where()`)
@@ -81,21 +90,28 @@ teacher_evals_compare <- teacher_evals |>
 
 ```{r}
 #| label: wd-3-numeric-ex-1
-
+# Lab 3 Question 5
+teacher_evals_clean <- teacher_evals |> 
+  rename(sex = gender) |> 
+  filter(no_participants >= 10)
 ```
 
 -   Numeric Example 2
 
 ```{r}
 #| label: wd-3-numeric-ex-1
-
+# Lab 3 Question 11
+teacher_evals_clean |>
+  filter(seniority == 1)
 ```
 
 -   Character Example 1 (any context)
 
 ```{r}
 #| label: wd-3-character
-
+# Lab 3 Question 12
+teacher_evals_clean |>
+  filter(academic_degree == "dr" | academic_degree == "prof")
 ```
 
 -   Character Example 2 (example must use functions from **stringr**)
@@ -118,14 +134,30 @@ teacher_evals_compare <- teacher_evals |>
 
 ```{r}
 #| label: wd-4-numeric-ex-1
-
+# Lab 3 Question 7
+demographics_teacher <- teacher_evals_clean |>
+  distinct(teacher_id, .keep_all = TRUE) |>
+  group_by(academic_degree, sex) |>
+  summarise(
+    total = n(),
+    avg_seniority = mean(seniority),
+    .groups = "drop"
+  )
 ```
 
 -   Numeric Example 2
 
 ```{r}
 #| label: wd-4-numeric-ex-2
-
+# Lab 3 Question 10
+res <- teacher_evals_clean |>
+  filter(question_no == 901) |>
+  group_by(teacher_id) |>
+  summarise(
+    n_courses = n_distinct(course_id),
+    avg_rating = mean(SET_score_avg, na.rm = TRUE),
+    .groups = "drop"
+  )
 ```
 
 -   Factor Example 1 (renaming levels)
@@ -381,7 +413,12 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: dvs-4-summarize
-
+# Lab 3 Question 6
+teacher_evals_clean |>
+  summarise(
+    n_unique_instructors = n_distinct(teacher_id),
+    n_unique_courses = n_distinct(course_id)
+  )
 ```
 
 -   Example using `across()`
@@ -397,14 +434,27 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: dvs-5-1
-
+demographics_teacher <- teacher_evals_clean |>
+  distinct(teacher_id, .keep_all = TRUE) |>
+  group_by(academic_degree, sex) |>
+  summarise(
+    total = n(),
+    avg_seniority = mean(seniority),
+    .groups = "drop"
+  )
 ```
 
 -   Example 2
 
 ```{r}
 #| label: dvs-5-2
-
+teacher_evals_clean |>
+  group_by(teacher_id, course_id) |>
+  summarise(
+    n_questions = n_distinct(question_no),
+    .groups = "drop"
+  ) |>
+  filter(n_questions == 9)
 ```
 
 **DVS-6: I can create tables which make my summaries clear to the reader.**
@@ -523,7 +573,10 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: pe-4-1
-
+# Lab 3 - Throughout (using native pipe |> instead of magrittr %>%)
+teacher_evals_clean <- teacher_evals |> 
+  rename(sex = gender) |> 
+  filter(no_participants >= 10)
 ```
 
 -   I can connect a data wrangling pipeline into a `ggplot()`
