@@ -118,7 +118,10 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: wd-3-string
-
+# Lab 5 - Identify Witnesses section
+witness_two <- person |> 
+  filter(address_street_name == "Franklin Ave",
+         str_detect(name, "Annabel"))
 ```
 
 -   Date (example must use functions from **lubridate**)
@@ -302,11 +305,15 @@ median_income <- ca_childcare |>
 
 The following assignments satisfy the above criteria:
 
--   Example 1
--   Example 2
--   Example 3
--   Example 4
--   Example 5
+-   Example 1: Lab 1 - Complete Quarto document on ToothGrowth dataset-
+
+-   Example 2: Lab 2 - Complete Quarto document on Rodent Data
+
+-   Example 3: Lab 3 - Complete Quarto document on Teacher Evaluations
+
+-   Example 4: Lab 4 - Complete Quarto document on California Childcare Costs
+
+-   Example 5: Lab 5 - Complete Quarto document on SQL City Murder Mystery
 
 **R-2: I can write well documented and tidy code.**
 
@@ -508,7 +515,11 @@ ggplot(data = surveys,
 
 ```{r}
 #| label: dvs-3-1-ex-2
-
+# Lab 4 Question 8
+ggplot(ca_childcare,
+       aes(x = mhi_2018, y = mc_infant))+
+  geom_point(aes(color = region), size = 1)+
+  geom_smooth(method = "lm", color = "yellow")
 ```
 
 -   I can use annotations (e.g., `geom_text()`)
@@ -611,7 +622,12 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-7-ex-2
-
+median_income <- ca_childcare |> 
+  filter(study_year %in% c(2008,2018)) |> 
+  group_by(region, study_year) |> 
+  summarise(median_mhi_2018usd = median(mhi_2018, na.rm = TRUE), .groups = "drop") |>
+  mutate(col = paste0("Income_", study_year, "_2018USD")) |>
+  pivot_wider(names_from = col, values_from = median_mhi_2018usd)
 ```
 
 ## Program Efficiency
@@ -754,7 +770,9 @@ summary(species_mod)
 
 ```{r}
 #| label: dsm-2-3
-
+# Lab 4 Question 9
+reg_mod1 <- lm(mc_infant ~ mhi_2018, data = ca_childcare)
+summary(reg_mod1)
 ```
 
 ## Revising My Thinking
