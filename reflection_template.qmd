@@ -225,6 +225,9 @@ ca_childcare <- ca_childcare|>
 
 ```{r}
 #| label: wd-5-right
+# Lab 4 Question 3 - Showing an instead of using a inner join and an alternative using right_join()
+tax_rev |>
+  right_join(ca_childcare, by = c("entity_name" = "county_name", "year" = "study_year"))
 
 ```
 
@@ -262,7 +265,9 @@ true_suspect <- real_suspect |>
 
 ```{r}
 #| label: wd-6-semi
-
+# Lab 5 - True Murderer Section (using a semi_join instead of a inner_join to keep the same data structure) still gets the culprit Miranda Priestly.
+real_suspect_concert <- real_suspect |>
+  semi_join(concert_attendance, by = c("id" = "person_id"))
 ```
 
 -   `anti_join()`
