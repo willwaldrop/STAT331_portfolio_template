@@ -305,7 +305,7 @@ median_income <- ca_childcare |>
 
 The following assignments satisfy the above criteria:
 
--   Example 1: Lab 1 - Complete Quarto document on ToothGrowth dataset-
+-   Example 1: Lab 1 - Complete Quarto document on ToothGrowth
 
 -   Example 2: Lab 2 - Complete Quarto document on Rodent Data
 
@@ -401,6 +401,7 @@ ggplot(data = ToothGrowth,
 
 ```{r}
 #| label: dvs-2-cat
+# Lab 2 - Challenge 2 (Medium option)
 ggplot(data = surveys,
        mapping = aes(x = species, y = weight, fill = sex)) +
   geom_boxplot(outlier.shape = NA) +
@@ -477,7 +478,6 @@ ToothGrowth |>
 
 ```{r}
 #| label: dvs-2-ex-4
-
 # Lab 2 - Boxplots section
 ggplot(data = surveys,
        mapping = aes(x = species, y = weight)) +
@@ -563,6 +563,7 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-5-1
+# Lab 3 Question 7
 demographics_teacher <- teacher_evals_clean |>
   distinct(teacher_id, .keep_all = TRUE) |>
   group_by(academic_degree, sex) |>
@@ -577,6 +578,7 @@ demographics_teacher <- teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-5-2
+# Lab 3 Question 9
 teacher_evals_clean |>
   group_by(teacher_id, course_id) |>
   summarise(
@@ -622,6 +624,7 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-7-ex-2
+# Lab 4 Question 5
 median_income <- ca_childcare |> 
   filter(study_year %in% c(2008,2018)) |> 
   group_by(region, study_year) |> 
