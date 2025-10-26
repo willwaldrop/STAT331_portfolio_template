@@ -286,7 +286,16 @@ ggplot(data = ToothGrowth,
 
 ```{r}
 #| label: r-2-2
-
+# Lab 3 Question 5
+teacher_evals_clean <- teacher_evals |> 
+  rename(sex = gender) |> 
+  filter(no_participants >= 10) |> 
+  mutate(
+    teacher_id = as.character(teacher_id),
+    course_id = as.character(course_id),
+    sex = as.factor(sex)) |> 
+  select(course_id, teacher_id, question_no, no_participants, resp_share,
+         SET_score_avg, percent_failed_cur, academic_degree, seniority, sex)
 ```
 
 -   Example of function formatting
@@ -320,7 +329,15 @@ ggplot(data = ToothGrowth,
 
 ```{r}
 #| label: dvs-1-num
-
+# Lab 2 - Scatterplot section
+ggplot(data = surveys, 
+       mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point(alpha = .03, size = 1) +
+  facet_wrap(~ species) + 
+  labs(x = "Weight (g)", 
+      y = NULL,
+      title = "Scatterplot of Weight v. Hindfoot Length by Species",
+      subtitle = "Hindfoot Length (mm)")
 ```
 
 -   At least one numeric variable and one categorical variable
@@ -338,7 +355,17 @@ ggplot(data = ToothGrowth,
 
 ```{r}
 #| label: dvs-2-cat
-
+ggplot(data = surveys,
+       mapping = aes(x = species, y = weight, fill = sex)) +
+  geom_boxplot(outlier.shape = NA) +
+  scale_fill_manual(values = c("F" = "#FF69B4", "M" = "#1d91c8")) +
+  labs(
+    x = "Species",
+    y = "Weight (grams)",
+    fill = "Sex",
+    title = "Distribution of Weight by Species, Colored by Sex"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 -   Dates (time series plot)
@@ -361,7 +388,17 @@ ggplot(data = ToothGrowth,
 
 ```{r}
 #| label: dvs-2-ex-2
-
+# Lab 2 - Challenge Plot section
+ggplot(data = surveys,
+       mapping = aes(x = species, y = weight, fill = sex)) +
+  geom_boxplot(outlier.shape = NA) +
+  scale_fill_manual(values = c("F" = "#FF69B4", "M" = "#1d91c8")) +
+  labs(
+    x = "Species",
+    y = "Weight (grams)",
+    fill = "Sex",
+    title = "Distribution of Weight by Species, Colored by Sex"
+  )
 ```
 
 -   I can modify my plot titles to clearly communicate the data context
@@ -381,6 +418,17 @@ ToothGrowth |>
 ```{r}
 #| label: dvs-2-ex-4
 
+# Lab 2 - Boxplots section
+ggplot(data = surveys,
+       mapping = aes(x = species, y = weight)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(aes(color = species), alpha = 0.3, size = 0.7, width = 0.2) +
+  labs(
+    x = "Species (Scientific Name)",
+    y = "Weight (grams)",
+    title = "Distribution of Weight Across Species"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 -   I can reorder my legend to align with the colors in my plot
@@ -396,7 +444,11 @@ ToothGrowth |>
 
 ```{r}
 #| label: dvs-3-1-ex-1
-
+# Lab 2 - Challenge Plot section
+ggplot(data = surveys,
+       mapping = aes(x = species, y = weight, fill = sex)) +
+  geom_boxplot(outlier.shape = NA) +
+  scale_fill_manual(values = c("F" = "#FF69B4", "M" = "#1d91c8"))
 ```
 
 -   I can use non-standard colors (Example 2)
@@ -596,7 +648,12 @@ teacher_evals_clean <- teacher_evals |>
 
 ```{r}
 #| label: pe-4-2
-
+# Lab 1 - Tooth Growth with dose as factor
+ToothGrowth |> 
+  mutate(dose = as.factor(dose)) |> 
+  ggplot(mapping = aes(x = dose, y = len)) +
+  geom_boxplot() +
+  labs(x = "Dose of Supplement (mg/day)", y = "Length of Teeth (mm)")
 ```
 
 ## Data Simulation & Statisical Models
@@ -631,7 +688,13 @@ t.test(len ~ supp, data = ToothGrowth, var.equal = FALSE)
 
 ```{r}
 #| label: dsm-2-2
+# Lab 2 - Conducting Statistical Analyses section
+surveys_anova <- surveys |> 
+  filter(!is.na(weight), !is.na(species)) |> 
+  mutate(species = as.factor(species))
 
+species_mod <- aov(weight ~ species, data = surveys_anova)
+summary(species_mod)
 ```
 
 -   Example 3
