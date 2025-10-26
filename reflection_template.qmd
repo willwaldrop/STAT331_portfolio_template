@@ -128,7 +128,11 @@ witness_two <- person |>
 
 ```{r}
 #| label: wd-3-date
-
+# Lab 5 Murder in SQL City.  Chaning the integers in the data into a "date" type variable from just a "int" type variable.
+gym_checkin <- get_fit_now_check_in |>
+  mutate(check_in_date = ymd(check_in_date)) |>
+  filter(check_in_date == ymd("2018-01-09"),
+         membership_id %in% gym_suspects$id)
 ```
 
 **WD-4: I can modify existing variables and create new variables in a dataframe for a *variety* of data types (e.g., numeric, integer, character, factor, date).**
