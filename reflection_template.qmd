@@ -164,7 +164,23 @@ res <- teacher_evals_clean |>
 
 ```{r}
 #| label: wd-4-factor-ex-1
-
+# Lab 4 Question 4
+ca_childcare <- ca_childcare |>
+  mutate(
+    county_name = str_remove(county_name, " County"),
+    region = fct_collapse(
+      county_name,
+      "Superior California" = superior_counties,
+      "North Coast" = north_coast_counties,
+      "San Francisco Bay Area" = san_fran_counties,
+      "Northern San Joaquin Valley" = n_san_joaquin_counties,
+      "Central Coast" = central_coast_counties,
+      "Southern San Joaquin Valley" = s_san_joaquin_counties,
+      "Inland Empire" = inland_counties,
+      "Los Angeles" = la_county,
+      "Orange County" = orange_county,
+      "San Diego/Imperial" = san_diego_imperial_counties)
+  )
 ```
 
 -   Factor Example 2 (reordering levels)
@@ -178,7 +194,10 @@ res <- teacher_evals_clean |>
 
 ```{r}
 #| label: wd-4-string
-
+# Lab 5 - Concert Attendance section
+concert_attendance <- facebook_event_checkin |> 
+  filter(event_name == "SQL Symphony Concert",
+         str_detect(as.character(date), "^201712"))
 ```
 
 -   Date (example must use functions from **lubridate**)
@@ -194,7 +213,9 @@ res <- teacher_evals_clean |>
 
 ```{r}
 #| label: wd-5-left-ex-1
-
+# Lab 4 Question 3
+ca_childcare <- ca_childcare|>
+  left_join(tax_rev, by = c("county_name" = "entity_name", "study_year" = "year"))
 ```
 
 -   `right_join()` Example 1
@@ -215,14 +236,21 @@ res <- teacher_evals_clean |>
 
 ```{r}
 #| label: wd-5-inner-ex-1
-
+# Lab 5 - Bringing Bowers in for Questioning section
+suspect <- gym_suspects |> 
+  inner_join(gym_checkin, by = c("id" = "membership_id")) |> 
+  inner_join(person, by = c("person_id" = "id")) |> 
+  inner_join(drivers_license, by = c("license_id" = "id"))
 ```
 
 -   `inner_join()` Example 2
 
 ```{r}
 #| label: wd-5-inner-ex-2
-
+# Lab 5 - True Murderer section
+true_suspect <- real_suspect |>
+  inner_join(concert_attendance, by = c("id" = "person_id")) |>
+  select(name, height, hair_color, car_make, car_model, attendance_count)
 ```
 
 **WD-6: I can use filtering joins to filter rows from a dataframe.**
@@ -247,14 +275,25 @@ res <- teacher_evals_clean |>
 
 ```{r}
 #| label: wd-7-long
-
+# Lab 4 Question 7
+ca_childcare|>
+  pivot_longer(
+    cols = c(mc_infant, mc_toddler, mc_preschool),
+    names_to = "childcare_type",
+    values_to = "price")
 ```
 
 -   `pivot_wider()`
 
 ```{r}
 #| label: wd-7-wide
-
+# Lab 4 Question 5
+median_income <- ca_childcare |> 
+  filter(study_year %in% c(2008,2018)) |> 
+  group_by(region, study_year) |> 
+  summarise(median_mhi_2018usd = median(mhi_2018, na.rm = TRUE), .groups = "drop") |>
+  mutate(col = paste0("Income_", study_year, "_2018USD")) |>
+  pivot_wider(names_from = col, values_from = median_mhi_2018usd)
 ```
 
 ## Reproducibility
@@ -381,7 +420,21 @@ ggplot(data = surveys,
 
 ```{r}
 #| label: dvs-2-ex-1
-
+# Lab 4 Question 7
+ca_childcare|>
+  pivot_longer(
+    cols = c(mc_infant, mc_toddler, mc_preschool),
+    names_to = "childcare_type",
+    values_to = "price")|>
+  ggplot(aes(x = study_year, y = price, color = region)) +
+  geom_line() +
+  geom_smooth(se = FALSE) +
+  facet_wrap(~ childcare_type, scales = "free_y") +
+  theme_minimal() +
+  theme(
+    aspect.ratio = 1,
+    legend.position = "right",
+    axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 -   I can modify my colors to be accessible to anyone's eyes
