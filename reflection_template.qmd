@@ -1,4 +1,5 @@
 ---
+x---
 title: "STAT 331 Portfolio"
 author: "William Waldrop"
 format: html 
@@ -10,7 +11,7 @@ execute:
   echo: true
 ---
 
-[**My Grade:**]{.underline} I believe my grade equivalent to course work evidenced below to be an \_\_.
+[**My Grade:**]{.underline} I believe my grade equivalent to course work evidenced below to be an C.
 
 [**Learning Objective Evidence:**]{.underline} In the code chunks below, provide code from Lab or Challenge assignments where you believe you have demonstrated proficiency with the specified learning target. Be sure to specify **where** the code came from (e.g., Lab 4 Question 2).
 
@@ -791,14 +792,20 @@ summary(reg_mod1)
 
 <!-- How did you revise your thinking throughout the course? How did you revise your thinking on the code examples you have provided in your portfolio? -->
 
-<!-- For the revisions included in your Portfolio, to help me understand the nature of your revisions, please denote somehow the feedback I provided you (e.g., boldface, italics, colored text) before your revisions. -->
+In Stat 331, I have struggled with my code mainly because it does not always work on the first try, but this process is precisely how I am learning and slowly progressing.  In the first weeks, I found the textbook material difficult to understand, especially the topics like data wrangling and the different types of joins.  Each time an error pops up in the console, I find myself discouraged.  Upon reflection, I realized this is necessary for learning.  I had to SPEND time and effort thinking critically about what the code was doing and how to get it to work, rather than just copying it from another source.  I came to realize that employers do not pay you to do repetitive tasks, but to solve problems that have never been solved before.  I have actively developed my critical thinking and problem-solving skills slowly this quarter.  My understanding of joins, dplyr operations, and data visualizations has improved with Labs 3, 4, and 5.  While I do get frustrated at times and just want to rush to the solution, one of the most significant aspects I have taken away thus far is that I am grateful for a challenging process because it has transformed me mentally, helping me realize what the essential aspects are in truly “learning” something.  Everyone can remember formulas, but understanding why they work is much more critical.
 
 ## Extending My Thinking
 
 <!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
+
+Throughout the course, I have extended my thinking by mainly focusing on code efficiency and by incorporating knowledge or code from previous assignments. As mentioned before, I treat each lab assignment as a new opportunity to problem-solve.  I have mainly extended my learning by independently exploring the diamonds dataset with my dad.  I did not know about the five C’s of diamonds, but I experimented with my newfound knowledge and ggplot that helped deepen my understanding of faceting and color scales.  I have also tried to consciously integrate dplyr pipelines into ggplot, creating code that is both concise and easily reproducible.  Perhaps most importantly, I have been thinking about the learning process itself and recognizing that finding the solution takes time and persistence.  The realization has made my mindset to embrace my code that does not work and recognize that code that is not working and goes through a few different editions is not failure, but a natural part of developing valuable skills.
 
 ## Peer Support & Collaboration
 
 <!-- Include an image or a description of feedback you gave that you are proud of (either in a peer review or in Discord). -->
 
 <!-- Include a description of how you grew as a collaborator through the weekly pair programming activities.   -->
+
+![](images/Screenshot 2025-10-26 at 10.18.24 PM.png)
+
+I reviewed Erica's lab report and noticed she had well-written, clear code with good structure and flow. However, I suggested she could improve efficiency by combining multiple function calls into a single call with comma-separated arguments, which would reduce repetition and minimize potential translation errors. This feedback demonstrated my growing understanding of code efficiency principles and my ability to recognize opportunities for improvement in others' work. Through pair programming sessions, I learned that collaboration is not just about dividing tasks but about thinking through problems together and learning from each other's approaches. I became more comfortable articulating my thought process, asking clarifying questions when confused, and offering suggestions respectfully.
