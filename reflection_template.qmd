@@ -129,7 +129,7 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: wd-3-string
-# Lab 5 - Identify Witnesses section
+# Lab 5 Identify Witnesses section
 witness_two <- person |> 
   filter(address_street_name == "Franklin Ave",
          str_detect(name, "Annabel"))
@@ -216,7 +216,7 @@ ca_childcare |>
 
 ```{r}
 #| label: wd-4-string
-# Lab 5 - Concert Attendance section
+# Lab 5 Concert Attendance section
 concert_attendance <- facebook_event_checkin |> 
   filter(event_name == "SQL Symphony Concert",
          str_detect(as.character(date), "^201712"))
@@ -226,7 +226,7 @@ concert_attendance <- facebook_event_checkin |>
 
 ```{r}
 #| label: wd-4-date
-# Lab 5 - taking date 
+# Lab 5 taking date 
 crime_scene_report |> 
   mutate(date = ymd(date),
          month_name = month(date, label = TRUE)) |> 
@@ -268,7 +268,7 @@ ca_childcare |>
 
 ```{r}
 #| label: wd-5-inner-ex-1
-# Lab 5 - Bringing Bowers in for Questioning section
+# Lab 5 Bringing Bowers in for Questioning section
 suspect <- gym_suspects |> 
   inner_join(gym_checkin, by = c("id" = "membership_id")) |> 
   inner_join(person, by = c("person_id" = "id")) |> 
@@ -279,7 +279,7 @@ suspect <- gym_suspects |>
 
 ```{r}
 #| label: wd-5-inner-ex-2
-# Lab 5 - True Murderer section
+# Lab 5 True Murderer section
 true_suspect <- real_suspect |>
   inner_join(concert_attendance, by = c("id" = "person_id")) |>
   select(name, height, hair_color, car_make, car_model, attendance_count)
@@ -291,7 +291,7 @@ true_suspect <- real_suspect |>
 
 ```{r}
 #| label: wd-6-semi
-# Lab 5 - True Murderer Section (using a semi_join instead of a inner_join to keep the same data structure) still gets the culprit Miranda Priestly.
+# Lab 5 True Murderer Section (using a semi_join instead of a inner_join to keep the same data structure) still gets the culprit Miranda Priestly.
 real_suspect_concert <- real_suspect |>
   semi_join(concert_attendance, by = c("id" = "person_id"))
 ```
@@ -354,7 +354,7 @@ The following assignments satisfy the above criteria:
 
 ```{r}
 #| label: r-2-1
-# Lab 1 - Tooth Growth Boxplots
+# Lab 1 Tooth Growth Boxplots
 ggplot(data = ToothGrowth, 
        mapping = aes(x = supp, y = len)) +
   geom_boxplot() +
@@ -381,7 +381,7 @@ teacher_evals_clean <- teacher_evals |>
 
 ```{r}
 #| label: r-2-3
-# Lab 8 
+# Lab 8 Problem One Function to standarize
 rescale_01 <- function(x) {
     
   if (!is.numeric(x)) {
@@ -729,7 +729,7 @@ fish |>
 
 ```{r}
 #| label: dvs-6-ex-2
-# Lab 9 Bolding column labels for readability
+# Lab 9 Question 3 Bolding column labels for readability
 surveys |>
   map_chr(class) |>
   enframe(name = "Variable", value = "Data Type") |>
@@ -742,12 +742,27 @@ surveys |>
 
 ```{r}
 #| label: dvs-6-ex-3
-# Lab 9 Arranging the table by the number of missing values
+# Lab 9 Question 8 Arranging the table by the number of missing values
 fish |>
   map_int(~sum(is.na(.))) |>
   enframe(name = "Variable", value = "Missing Values") |>
   arrange(`Missing Values`) |>
-  gt()
+  gt() |>
+  tab_header(
+    title = "Number of Missing Values for Fish Measurements",
+    subtitle = "Data Collected from 1989 to 2006 on theBlackfoot Fish River in Montana"
+  ) |>
+  cols_label(
+    Variable = "Measurement Variable"
+  ) |>
+  data_color(
+    columns = `Missing Values`,
+    fn = scales::col_numeric(
+      palette = "RdYlGn",
+      domain = NULL,
+      reverse = TRUE
+    )
+  )
 ```
 
 **DVS-7: I show creativity in my tables.**
@@ -756,12 +771,19 @@ fish |>
 
 ```{r}
 #| label: dvs-7-ex-1
-# Lab 9 using data_color() with a color palette
+# Lab 9 Question 8 using data_color() with a color palette
 fish |>
   map_int(~sum(is.na(.))) |>
   enframe(name = "Variable", value = "Missing Values") |>
   arrange(`Missing Values`) |>
   gt() |>
+  tab_header(
+    title = "Number of Missing Values for Fish Measurements",
+    subtitle = "Data Collected from 1989 to 2006 on theBlackfoot Fish River in Montana"
+  ) |>
+  cols_label(
+    Variable = "Measurement Variable"
+  ) |>
   data_color(
     columns = `Missing Values`,
     fn = scales::col_numeric(
@@ -805,7 +827,7 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: pe-1-across
-# Lab 8 Using across() inside a custom function to rescale selected columns which makes it work in any case
+# Lab 8 Testing fucntion in standarization Using across() inside a custom function to rescale selected columns which makes it work in any case
 rescale_column <- function(data, cols) {
   data |>
     mutate(
@@ -818,7 +840,7 @@ rescale_column <- function(data, cols) {
 
 ```{r}
 #| label: pe-1-map-1
-# Lab 9 
+# Lab 9 Question 2
 surveys |>
   map_chr(class) |>
   enframe(name = "Variable", value = "Data Type") |>
@@ -831,7 +853,7 @@ surveys |>
 
 ```{r}
 #| label: pe-2-1
-# Lab 7 Challenge 
+# Lab 7 Challenge Question 4 
 calculate_condition_index <- function(weight, length) {
   
   if (!is.numeric(weight) || !is.numeric(length)) {
@@ -846,7 +868,7 @@ calculate_condition_index <- function(weight, length) {
 
 ```{r}
 #| label: pe-2-2
-# Lab 8 
+# Lab 8 Function to Create a Table
 pivot_table <- function(df, row_var, col_var) {
   df |>
     drop_na({{ row_var }}, {{ col_var }}) |>
@@ -888,7 +910,7 @@ teacher_evals |>
 
 ```{r}
 #| label: pe-3-map-1
-# Lab 9
+# Lab 9 Question 2
 fish |>
   map_int(~sum(is.na(.))) |>
   enframe(name = "Variable", value = "Missing Values") |>
@@ -934,7 +956,7 @@ ToothGrowth |>
 
 ```{r}
 #| label: dsm-1-1
-# Lab 10
+# Lab 10 Question 1
 results <- map_int(.x = 1:10000,
                    .f = ~ randomBabies(4))
 ```
