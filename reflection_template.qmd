@@ -39,7 +39,15 @@ teacher_evals <- read_csv(here("Week 3", "Lab 3 (Revised)", "teacher_evals.csv")
 
 ```{r}
 #| label: wd-1-xlsx
-
+# Practice Activity 4 
+library(tidyverse)
+library(readxl)
+military <- read_xlsx("gov_spending_per_capita.xlsx",
+                      sheet = "Share of Govt. spending",
+                      skip  = 7,
+                      n_max = 191,
+                      na = c("..", ". .", "xxx")
+                      )
 ```
 
 **WD-2: I can select necessary columns from a dataset.**
