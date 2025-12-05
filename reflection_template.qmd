@@ -621,7 +621,21 @@ ggplot(ca_childcare,
 
 ```{r}
 #| label: dvs-3-2
-
+# Lab 4 going back to lab and using annotations
+ca_childcare |> 
+  filter(study_year == 2018) |> 
+  ggplot(aes(x = mhi_2018, y = mc_infant)) +
+  geom_point(alpha = 0.5) +
+  geom_text(
+    data = ca_childcare |> filter(study_year == 2018, mhi_2018 > 120000),
+    aes(label = county_name),
+    nudge_y = 15,
+    check_overlap = TRUE,
+    size = 3) +
+  labs(title = "Income vs. Infant Care Cost (2018)",
+       subtitle = "High income counties labeled",
+       x = "Median Household Income",
+       y = "Weekly Infant Care Cost")
 ```
 
 -   I can choose creative geometries (e.g., `geom_segment()`, `geom_ribbon)()`)
@@ -922,8 +936,7 @@ ToothGrowth |>
 #| label: dsm-1-1
 # Lab 10
 results <- map_int(.x = 1:10000,
-                   .f = 
-                  )
+                   .f = ~ randomBabies(4))
 ```
 
 -   Example 2
@@ -935,17 +948,19 @@ results <- map_int(.x = 1:10000,
 intercept = 2
 slope = 1
 
+set.seed(123)
+
 # generate x vector
-x <- runif(100, min = 0, max = 1)
+x = runif(100, min = 0, max = 1)
 
 # generate noise `ep` vector
-ep <- rnorm(100, mean = 0, sd = 1)
+ep = rnorm(100, mean = 0, sd = 1)
 
 # generate outcome from population model
 y = intercept + x*slope + ep
 
 # create an "observed data" dataframe with only the x and y vectors
-sim_data <- tibble(x = x, y = y)
+observed_data = data.frame(x = x, y = y )
 ```
 
 **DSSM-2: I can conduct common statistical analyses in R.**
