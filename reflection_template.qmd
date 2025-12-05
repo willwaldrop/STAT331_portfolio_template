@@ -358,7 +358,19 @@ teacher_evals_clean <- teacher_evals |>
 
 ```{r}
 #| label: r-2-3
-
+# Lab 8 
+rescale_01 <- function(x) {
+    
+  if (!is.numeric(x)) {
+    stop()
+  }
+  if (length(x) <= 1) {
+    stop()
+  }
+  rng <- range(x, na.rm = TRUE)
+  
+  (x - rng[1]) / (rng[2] - rng[1])
+}
 ```
 
 **R-3: I can write robust programs that are resistant to changes in inputs.**
@@ -367,14 +379,44 @@ teacher_evals_clean <- teacher_evals |>
 
 ```{r}
 #| label: r-3-example
-
+# Lab 7 Challenge Question 2
+clean_measurements <- function(measurements, min_val, max_val) {
+  
+  if (!is.numeric(measurements)) {
+    stop("Input 'measurements' must be a number.")
+  }
+  if (!is.numeric(min_val) || !is.numeric(max_val)) {
+    stop("min_val and max_val must be a number.")
+  }
+  
+  case_when(
+    measurements < min_val ~ NA,
+    measurements > max_val ~ NA,
+    TRUE ~ measurements
+  )
+}
 ```
 
 -   Example (function stops)
 
 ```{r}
 #| label: r-3-function-stops
-
+# Lab 7 Challenge Question 2
+clean_measurements <- function(measurements, min_val, max_val) {
+  
+  if (!is.numeric(measurements)) {
+    stop("Input 'measurements' must be a number.")
+  }
+  if (!is.numeric(min_val) || !is.numeric(max_val)) {
+    stop("min_val and max_val must be a number.")
+  }
+  
+  case_when(
+    measurements < min_val ~ NA,
+    measurements > max_val ~ NA,
+    TRUE ~ measurements
+  )
+}
 ```
 
 ## Data Visualization & Summarization
@@ -429,7 +471,23 @@ ggplot(data = surveys,
 
 ```{r}
 #| label: dvs-2-date
-
+# Lab 7 Challenge Question 5 (plots condition_index over time)
+fish |>
+  mutate(
+    condition_index = calculate_condition_index(weight, length),
+    year = as.integer(year)
+  ) |>
+  ggplot(aes(x = year, y = condition_index)) +
+  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +
+  stat_summary(fun = median, geom = "line", linewidth = 1) +
+  facet_wrap(~ species, scales = "free_y") +
+  labs(
+    title = "Fish Condition Index Over Time",
+    caption = "Source: Montana Fish, Wildlife, and Parks",
+    x = "Year",
+    y = "Condition Index"
+  ) +
+  theme_minimal(base_size = 12)
 ```
 
 **DVS-2: I use plot modifications to make my visualization clear to the reader.**
@@ -806,6 +864,6 @@ Throughout the course, I have extended my thinking by mainly focusing on code ef
 
 <!-- Include a description of how you grew as a collaborator through the weekly pair programming activities.   -->
 
-![](images/Screenshot 2025-10-26 at 10.18.24 PM.png)
+![](images/Screenshot%202025-10-26%20at%2010.18.24%20PM.png)
 
 I reviewed Erica's lab report and noticed she had well-written, clear code with good structure and flow. However, I suggested she could improve efficiency by combining multiple function calls into a single call with comma-separated arguments, which would reduce repetition and minimize potential translation errors. This feedback demonstrated my growing understanding of code efficiency principles and my ability to recognize opportunities for improvement in others' work. Through pair programming sessions, I learned that collaboration is not just about dividing tasks but about thinking through problems together and learning from each other's approaches. I became more comfortable articulating my thought process, asking clarifying questions when confused, and offering suggestions respectfully.
