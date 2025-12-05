@@ -761,14 +761,25 @@ median_income <- ca_childcare |>
 
 ```{r}
 #| label: pe-1-one-call
-
+# Lab 3 Counts of variables we are interested in
+teacher_evals_clean |>
+  summarise(
+    n_unique_instructors = n_distinct(teacher_id),
+    n_unique_courses = n_distinct(course_id)
+  )
 ```
 
 -   using `across()`
 
 ```{r}
 #| label: pe-1-across
-
+# Lab 8 Using across() inside a custom function to rescale selected columns which makes it work in any case
+rescale_column <- function(data, cols) {
+  data |>
+    mutate(
+      across({{ cols }}, rescale_01)
+    )
+}
 ```
 
 -   using functions from the `map()` family
@@ -821,7 +832,13 @@ pivot_table <- function(df, row_var, col_var) {
 
 ```{r}
 #| label: pe-2-3
-
+# Lab 8 Function that operates on data frames to rescale columns
+rescale_column <- function(data, cols) {
+  data |>
+    mutate(
+      across({{ cols }}, rescale_01)
+    )
+}
 ```
 
 **PE-3:I can use iteration to reduce repetition in my code.**
@@ -830,7 +847,9 @@ pivot_table <- function(df, row_var, col_var) {
 
 ```{r}
 #| label: pe-3-across
-
+# Lab 3 Mutating multiple columns to factors at once
+teacher_evals |> 
+  mutate(across(c(course_id, teacher_id, gender), as.factor))
 ```
 
 -   using a `map()` function with **one** input (e.g., `map()`, `map_chr()`, `map_dbl()`, etc.)
@@ -857,7 +876,7 @@ fish |>
 
 ```{r}
 #| label: pe-4-1
-# Lab 3 - Throughout (using native pipe |> instead of magrittr %>%)
+# Lab 3 Throughout (using native pipe |> instead of magrittr %>%)
 teacher_evals_clean <- teacher_evals |> 
   rename(sex = gender) |> 
   filter(no_participants >= 10)
