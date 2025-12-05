@@ -765,14 +765,33 @@ surveys |>
 
 ```{r}
 #| label: pe-2-1
-
+# Lab 7 Challenge 
+calculate_condition_index <- function(weight, length) {
+  
+  if (!is.numeric(weight) || !is.numeric(length)) {
+    stop("Inputs for weight and length must be a number.")
+  }
+  
+  (weight / (length^3)) * 100
+}
 ```
 
 -   Example 2: Function that operates on data frames
 
 ```{r}
 #| label: pe-2-2
-
+# Lab 8 
+pivot_table <- function(df, row_var, col_var) {
+  df |>
+    drop_na({{ row_var }}, {{ col_var }}) |>
+    count({{ row_var }}, {{ col_var }}) |>
+    pivot_wider(
+      names_from = {{ col_var }},
+      values_from = n,        
+      values_fill = 0        
+    ) |>
+    janitor::adorn_totals(where = c("row", "col"))
+}
 ```
 
 -   Example 3: Function that operates on vectors *or* data frames
@@ -795,7 +814,11 @@ surveys |>
 
 ```{r}
 #| label: pe-3-map-1
-
+# Lab 9
+fish |>
+  map_int(~sum(is.na(.))) |>
+  enframe(name = "Variable", value = "Missing Values") |>
+  kable()
 ```
 
 -   using a `map()` function with **more than one** input (e.g., `map_2()` or `pmap()`)
@@ -837,14 +860,32 @@ ToothGrowth |>
 
 ```{r}
 #| label: dsm-1-1
-
+# Lab 10
+results <- map_int(.x = 1:10000,
+                   .f = 
+                  )
 ```
 
 -   Example 2
 
 ```{r}
 #| label: dsm-1-2
+# Lab 10 creating data for a linear regression
+# define slope and intercept parameters
+intercept = 2
+slope = 1
 
+# generate x vector
+x <- runif(100, min = 0, max = 1)
+
+# generate noise `ep` vector
+ep <- rnorm(100, mean = 0, sd = 1)
+
+# generate outcome from population model
+y = intercept + x*slope + ep
+
+# create an "observed data" dataframe with only the x and y vectors
+sim_data <- tibble(x = x, y = y)
 ```
 
 **DSSM-2: I can conduct common statistical analyses in R.**
