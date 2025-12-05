@@ -90,7 +90,9 @@ teacher_evals_clean <- teacher_evals |>
 
 ```{r}
 #| label: wd-2-ex-3
-
+# Lab 4 - Selecting Median Cost columns using starts_with
+childcare_costs <- ca_childcare |> 
+  select(county_name, study_year, starts_with("mc_"))
 ```
 
 **WD-3: I can filter rows from a dataframe for a *variety* of data types (e.g., numeric, integer, character, factor, date).**
@@ -203,7 +205,11 @@ ca_childcare <- ca_childcare |>
 
 ```{r}
 #| label: wd-4-factor-ex-2
-
+# Lab 4 using reordering for plotting 
+ca_childcare |> 
+  mutate(region = fct_reorder(region, mhi_2018)) |> 
+  ggplot(aes(x = mhi_2018, y = region)) +
+  geom_boxplot()
 ```
 
 -   Character (example must use functions from **stringr**)
@@ -220,7 +226,11 @@ concert_attendance <- facebook_event_checkin |>
 
 ```{r}
 #| label: wd-4-date
-
+# Lab 5 - taking date 
+crime_scene_report |> 
+  mutate(date = ymd(date),
+         month_name = month(date, label = TRUE)) |> 
+  count(month_name)
 ```
 
 **WD-5: I can use mutating joins to combine multiple dataframes.**
@@ -248,7 +258,10 @@ tax_rev |>
 
 ```{r}
 #| label: wd-5-left-right-ex-2
-
+# Lab 4 putting tax revenue with ca_childcare
+ca_childcare |> 
+  left_join(tax_rev, by = c("county_name" = "entity_name", "study_year" = "year")
+            )
 ```
 
 -   `inner_join()` Example 1
@@ -287,7 +300,9 @@ real_suspect_concert <- real_suspect |>
 
 ```{r}
 #| label: wd-6-anti
-
+# Lab 5 Finding drivers licenses that do not belong to a person in the database
+drivers_license |> 
+  anti_join(person, by = c("id" = "license_id"))
 ```
 
 **WD-7: I can pivot dataframes from long to wide and visa versa**
