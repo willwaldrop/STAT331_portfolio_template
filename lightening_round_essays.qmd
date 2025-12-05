@@ -6,16 +6,20 @@ editor: visual
 
 **Answer each of the following questions with *one sentence* including a brief explanation.**
 
-1. Finish the sentence with another student’s name: "If [Name of Student] doesn’t earn an A, then nobody should, because..." Explain your choice and your reasoning.
+1.  Finish the sentence with another student’s name: "If Natalie doesn’t earn an A, then nobody should, because she helped me a lot this quarter and was a great partner to sit next to for the quarter."
 
+2.  What was the most difficult part of the class for you? List a general topic, a specific problem, a kind of work we did, etc. and explain why.
 
-2. What was the most difficult part of the class for you? List a general topic, a specific problem, a kind of work we did, etc. and explain why.
+Learning the syntax of R. I found Python more intuitive and so there was a little bit of a learning curve getting started wit this class.
 
+3.  What was the easiest part of the class for you? Explain why
 
-3. What was the easiest part of the class for you? Explain why.
+I found the practice activities to be the easiest part, but also little of the most rewarding. They were fun little puzzles to solve with peers and I liked that aspect.
 
+4.  What part of the class surprised or interested you the most? Explain why.
 
-4. What part of the class surprised or interested you the most? Explain why.
+The different packages and complexities that R has. I did not realize the R community to be as large as it is and as passionate as it is. I have explored the "tidyquant" package already on myself and want to read more documentation on it since it can pull stock ticker symbols and their prices directly into R. I look forward to creating industry level standard graphs.
 
+5.  Give one piece of advice to a student just beginning a quarter of STAT 331 that will help them be successful in learning.
 
-5. Give one piece of advice to a student just beginning a quarter of STAT 331 that will help them be successful in learning.
+Be patience. If your code does not work on the first run try again and have a little humility with yourself to know you will not be an "R" expert the very first day.
