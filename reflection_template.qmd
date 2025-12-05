@@ -586,7 +586,11 @@ ggplot(data = surveys,
 
 ```{r}
 #| label: dvs-2-ex-5
-
+# Lab 4 Reordering the region factor ensures the legend matches
+ca_childcare |> 
+  mutate(region = fct_reorder(region, mhi_2018, .desc = TRUE)) |> 
+  ggplot(aes(x = study_year, y = mhi_2018, color = region)) +
+  stat_summary(fun = mean, geom = "line")
 ```
 
 **DVS-3: I show creativity in my visualizations**
@@ -624,7 +628,10 @@ ggplot(ca_childcare,
 
 ```{r}
 #| label: dvs-3-3
-
+# Lab 7 Using stat_summary to overlay a median line on top of jittered points
+ggplot(fish, aes(x = year, y = condition_index)) +
+  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +
+  stat_summary(fun = median, geom = "line", linewidth = 1)
 ```
 
 **DVS-4: I can calculate numerical summaries of variables.**
@@ -708,14 +715,25 @@ fish |>
 
 ```{r}
 #| label: dvs-6-ex-2
-
+# Lab 9 Bolding column labels for readability
+surveys |>
+  map_chr(class) |>
+  enframe(name = "Variable", value = "Data Type") |>
+  arrange(Variable) |>
+  gt() |>
+  tab_options(column_labels.font.weight = "bold")
 ```
 
 -   I can arrange my table to have an intuitive ordering
 
 ```{r}
 #| label: dvs-6-ex-3
-
+# Lab 9 Arranging the table by the number of missing values
+fish |>
+  map_int(~sum(is.na(.))) |>
+  enframe(name = "Variable", value = "Missing Values") |>
+  arrange(`Missing Values`) |>
+  gt()
 ```
 
 **DVS-7: I show creativity in my tables.**
