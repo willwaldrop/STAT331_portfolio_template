@@ -622,7 +622,11 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-4-across
-
+# Lab 7 Question 1
+fish |>
+  summarise(
+    across(everything(), ~ sum(is.na(.)))
+  )
 ```
 
 **DVS-5: I can find summaries of variables across multiple groups.**
@@ -662,7 +666,19 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-6-ex-1
-
+# Lab 9 Question 8
+fish |>
+  map_int(~sum(is.na(.))) |>
+  enframe(name = "Variable", value = "Missing Values") |>
+  arrange(`Missing Values`) |>
+  gt() |>
+  tab_header(
+    title = "Number of Missing Values for Fish Measurements",
+    subtitle = "Data Collected from 1989 to 2006 on theBlackfoot Fish River in Montana"
+  ) |>
+  cols_label(
+    Variable = "Measurement Variable"
+  )
 ```
 
 -   I can modify the text in my table to be more readable (e.g., bold face for column headers)
@@ -685,7 +701,20 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: dvs-7-ex-1
-
+# Lab 9 using data_color() with a color palette
+fish |>
+  map_int(~sum(is.na(.))) |>
+  enframe(name = "Variable", value = "Missing Values") |>
+  arrange(`Missing Values`) |>
+  gt() |>
+  data_color(
+    columns = `Missing Values`,
+    fn = scales::col_numeric(
+      palette = "RdYlGn",
+      domain = NULL,
+      reverse = TRUE
+    )
+  )
 ```
 
 -   I can modify the layout of my table to be more readable (e.g., `pivot_longer()` or `pivot_wider()`)
@@ -723,7 +752,11 @@ median_income <- ca_childcare |>
 
 ```{r}
 #| label: pe-1-map-1
-
+# Lab 9 
+surveys |>
+  map_chr(class) |>
+  enframe(name = "Variable", value = "Data Type") |>
+  kable()
 ```
 
 **PE-2: I can write functions to reduce repetition in my code.**
